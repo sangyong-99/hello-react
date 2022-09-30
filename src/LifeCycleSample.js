@@ -7,6 +7,7 @@ class LifeCycleSample extends Component {
   };
 
   myRef = null;
+
   constructor(props) {
     super(props);
     console.log("constructor");
@@ -19,9 +20,11 @@ class LifeCycleSample extends Component {
     }
     return null;
   }
+
   componentDidMount() {
     console.log("componentDidMount");
   }
+
   shouldComponentUpdate(nextProps, nextState) {
     console.log("shouldComponentUpdate", nextProps, nextState);
     return nextState.number % 10 !== 4;
@@ -40,6 +43,8 @@ class LifeCycleSample extends Component {
   getSnapshotBeforeUpdate(prevProps, prevState) {
     console.log("getSnapshotBeforeUpdate");
     if (prevProps.color !== this.props.color) {
+      console.log(prevProps.color);
+      console.log(prevState.color);
       return this.myRef.style.color;
     }
     return null;
@@ -54,16 +59,16 @@ class LifeCycleSample extends Component {
 
   render() {
     console.log("render");
-
     const style = {
       color: this.props.color,
     };
+
     return (
       <div>
         <h1 style={style} ref={(ref) => (this.myRef = ref)}>
           {this.state.number}
         </h1>
-        <p>color: {this.state.color}</p>
+        <p> color:{this.state.color}</p>
         <button onClick={this.handleClick}>더하기</button>
       </div>
     );
